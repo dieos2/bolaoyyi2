@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\controllers;
+namespace app\controllers;
 
 use Yii;
 use app\models\User;
@@ -8,23 +8,60 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\models\AccessRule;
+use app\models\UserCadastro;
+use yii\filters\AccessControl;
 /**
  * UserController implements the CRUD actions for User model.
  */
 class UserController extends Controller
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
+   public function behaviors() {
+		return[ 
+            
+            'access' => [
+    'class' => AccessControl::className(),
+    // We will override the default rule config with the new AccessRule class
+    'ruleConfig' => [
+        'class' => AccessRule::className(),
+    ],
+   
+    'rules' => [
+        [
+            
+            'allow' => true,
+            // Allow users, moderators and admins to create
+            'roles' => [
+                UserCadastro::ROLE_ADMIN
             ],
-        ];
-    }
+        ],
+       
+    ],
+], ];
+            
+            
+//            [ 'access' => [
+//                'class' => AccessControl::className(),
+//                'only' => ['index', 'view'],
+//                'rules' => [
+//                    [
+//                        'actions' => ['index','view'],
+//                        'allow' => true,
+//                        'roles' => ['@'],
+//                    ],
+//                   
+//                ],
+//            ],
+//				'verbs' => [ 
+//						'class' => VerbFilter::className (),
+//						'actions' => [ 
+//								'delete' => [ 
+//										'post' 
+//								] 
+//						] 
+//				] 
+//		];
+	}
 
     /**
      * Lists all User models.

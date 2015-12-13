@@ -7,9 +7,16 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
+          'response' => [
+            'formatters' => [
+                'pdf' => [
+                    'class' => 'robregonm\pdf\PdfResponseFormatter',
+                ],
+            ]
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'BUO982WTCRTWj7__DtLTgDbVfn6EXdyr',
+            'cookieValidationKey' => 'pnNLn2L3DeTjo_v_kpXrv74oX1Zg0MD3',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -17,7 +24,15 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
-        ],
+        ],'urlManager' => [
+    				'enablePrettyUrl' => true,
+    				'showScriptName' => false,
+    				'rules' => array(
+    						'<controller:\w+>/<id:\d+>' => '<controller>/view',
+    						'<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+    						'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+    				),
+    		],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -45,10 +60,14 @@ $config = [
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = 'yii\debug\Module';
+    $config['modules']['debug'] = [
+        'class' => 'yii\debug\Module',
+    ];
 
     $config['bootstrap'][] = 'gii';
-    $config['modules']['gii'] = 'yii\gii\Module';
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
+    ];
 }
 
 return $config;

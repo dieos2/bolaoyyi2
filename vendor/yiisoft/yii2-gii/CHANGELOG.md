@@ -5,9 +5,15 @@ Yii Framework 2 gii extension Change Log
 -----------------------
 
 - Bug #66: It was impossible to use tables with spaces (cornernote)
+- Bug #79: There was no form element to toggle using schema name for class name (phpniki)
+- Bug #83: Files were overwritten regardless of answers in console Gii (chernyshev, jeicd)
+- Bug #104: Allow reuse of the Gii Module for running multiple actions (cebe)
+- Enh #20: Added support for composite (multi-column) foreign keys in junction tables (nineinchnick)
 - Enh #34: Model generator now skips FKs pointing to non-existing tables (samdark)
 - Enh #42: Entire preview code now can be copied by pressing CTRL+C (thiagotalma, samdark)
+- Enh #54: Model generator is now able to generate reverse relations (nineinchnick)
 - Enh #56: Model generator now generates exist rules based on table foreign keys (Faryshta, samdark)
+- Enh #95: More parameters are now available in `query.php` view of model generator (demisang)
 - Chg #38: Added compatibility with latest Typeahead version (razvanphp)
 
 

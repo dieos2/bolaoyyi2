@@ -56,14 +56,15 @@ class NavBar extends Widget
      */
     public $containerOptions = [];
     /**
-     * @var string|boolean the text of the brand of false if it's not used. Note that this is not HTML-encoded.
+     * @var string|boolean the text of the brand or false if it's not used. Note that this is not HTML-encoded.
      * @see http://getbootstrap.com/components/#navbar
      */
     public $brandLabel = false;
     /**
-     * @var array|string|boolean $url the URL for the brand's hyperlink tag. This parameter will be processed by [[Url::to()]]
+     * @var array|string|boolean $url the URL for the brand's hyperlink tag. This parameter will be processed by [[\yii\helpers\Url::to()]]
      * and will be used for the "href" attribute of the brand link. Default value is false that means
      * [[\yii\web\Application::homeUrl]] will be used.
+     * You may set it to `null` if you want to have no link at all.
      */
     public $brandUrl = false;
     /**

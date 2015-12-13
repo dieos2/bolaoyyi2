@@ -1,32 +1,124 @@
 <?php
+
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
+use yii\widgets\Breadcrumbs;
+use app\assets\HeadAsset;
+use app\assets\BottomAsset;
+use app\widgets\Alert;
+use app\models\Setup;
+use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \common\models\LoginForm */
 
-$this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
+/* @var $this \yii\web\View */
+/* @var $content string */
+/* @var $model app\models\Sala */
+
+HeadAsset::register($this);
+
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
+<?php BottomAsset::register($this);    ?>
+<?php $this->beginPage() ?>
+<!DOCTYPE html>
+<html lang="en" class="bg-dark">
+<head>
+    <meta charset="utf-8" />
+    <title>Notebook | Web Application</title>
+    <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="/css/app.v2.css" type="text/css" />
+    <link rel="stylesheet" href="/css/font.css" type="text/css" cache="false" />
+    <!--[if lt IE 9]> <script src="js/ie/html5shiv.js" cache="false"></script> <script src="js/ie/respond.min.js" cache="false"></script> <script src="js/ie/excanvas.js" cache="false"></script> <![endif]-->
+</head>
+<body>
+    <section id="content" class="m-t-lg wrapper-md animated fadeInUp">
+        <div class="container aside-xxl"><a class="navbar-brand block" href="index.html">Notebook</a>
+            <section class="panel panel-default bg-white m-t-lg">
+                <header class="panel-heading text-center"><strong>Sign in</strong> </header>
+   <?php $this->beginBody() ?>
+        <?= Html::csrfMetaTags() ?>
 
-    <p>Please fill out the following fields to login:</p>
-
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-                <?= $form->field($model, 'username') ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
-                <div style="color:#999;margin:1em 0">
-                    If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
-                </div>
-                <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                </div>
-            <?php ActiveForm::end(); ?>
+			   <?php $form = ActiveForm::begin(['id' => 'login-form',  'options' => [
+                'class' => 'panel-body wrapper-lg']]); ?>
+				
+				 <div class="form-group">
+                        <label class="control-label">Usuario</label>
+                         <?= $form->field($model, 'username')->textInput(['class'=>'form-control input-lg', 'placeholder'=>'Usuario' ])->label(false) ?>
+                    
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Password</label>
+                       <?= $form->field($model, 'password')->passwordInput()->passwordInput(['class'=>'form-control input-lg', 'placeholder'=>'Senha' ])->label(false) ?>
+                     
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">
+                            Manter-me logado </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                    <div class="line line-dashed"></div>
+				
+				  <?php ActiveForm::end(); ?>
+						
+			
+			
+			
+			
+			
+		 </section>
         </div>
-    </div>
-</div>
+    </section>
+    <!-- footer -->
+    <footer id="footer">
+        <div class="text-center padder">
+            <p><small>Web app framework base on Bootstrap<br>
+                &copy; 2013</small> </p>
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="/js/app.v2.js"></script>
+    <!-- Bootstrap -->
+    <!-- App -->
+</body>
+</html>
+
+ <?php $this->endBody() ?>
+         
+     
+    </body>
+</html>
+<?php $this->endPage() ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   
+                   
+          
+
+
+	
+
+	
+	
+
+	
+	
+
+ 

@@ -8,14 +8,15 @@ use app\assets\HeadAsset;
 use app\assets\BottomAsset;
 use yii\widgets\Alert;
 use app\models\Setup;
-
+use app\models\User;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 /* @var $model app\models\Sala */
 
-HeadAsset::register($this);
 
+HeadAsset::register($this);
+$modelUsers =  User::findByUsername(Yii::$app->user->identity->username) 
 ?>
 <?php BottomAsset::register($this);    ?>
 <?php $this->beginPage() ?>
@@ -77,7 +78,7 @@ HeadAsset::register($this);
                                 </a>
                                 <div class="clear">
                                     <a href="#">
-                                        <span class="text-white font-bold">@Mike Mcalidek</span>
+                                        <span class="text-white font-bold">@  <?= $modelUsers->username ?></span>
                                     </a>
 
                                     <small class="block">Art Director</small>
@@ -120,7 +121,10 @@ HeadAsset::register($this);
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="thumb-sm avatar pull-left">
-
+                            <img src="images/<?= $modelUsers->username ?>.jpg">
+                            </span><?= $modelUsers->username ?>
+                          
+                               
                         </a>
                         <ul class="dropdown-menu animated fadeInRight">
                             <span class="arrow top"></span>
