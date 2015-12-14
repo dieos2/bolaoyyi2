@@ -30,14 +30,18 @@ class RankController extends Controller
      * Lists all Rank models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id= 0)
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Rank::find(),
-        ]);
+          if ($id == 0) {
+          $rank = Rank::find()->all();
+        } else {
+            $rank = Rank::find()->where(['=', 'id_user', $id])->all();
+        }
+       
+      
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+            'rank' => $rank,
         ]);
     }
 

@@ -3,7 +3,8 @@
 namespace app\models;
 
 use Yii;
-
+use app\models\User;
+use app\models\setup;
 /**
  * This is the model class for table "rank".
  *
@@ -78,5 +79,126 @@ class Rank extends \yii\db\ActiveRecord
     public function getIdPonto()
     {
         return $this->hasOne(Pontos::className(), ['id' => 'id_ponto']);
+    }
+   
+      
+
+    public static function ordenarRank(&$array, $key, $desempate) {
+        $sorter = array();
+         $ret = array();
+        foreach ($array as $ii => $row) {
+            $pontos[$ii] = $row[$key];
+            $acertos[$ii] = $row[$desempate];
+        }
+
+// Ordena os dados com volume descendente, edition ascendente
+// adiciona $data como o último parãmetro, para ordenar pela chave comum
+      array_multisort($pontos, SORT_DESC, $acertos, SORT_DESC,$array);
+        foreach ($array as $ii => $va) {
+            $ret[$ii] = $array[$ii];
+        }
+      return $ret;
+    }
+
+    public static function actionGetPosicao($id) {
+        $nome = User::findByUsername(Yii::$app->user->identity->username)->username;
+        $rankLista = array();
+        $rankUser = array();
+       
+      
+
+        $modelAposta = User::find()->orderBy(['id'])->all();
+        $total = 0;
+        $id_user = 0;
+        foreach ($modelAposta as $item) {
+            $rankUser = array("acertos" => Rank::GetAcertos($item->id)
+                , "nome" => $item->username, "pontos" => Rank::actionGetTotal($item->id)
+                , "resultados" => Rank::GetResultados($item->id));
+            array_push($rankLista, $rankUser);
+        }
+        $rankLista = Setup::aasort($rankLista, 'pontos');
+        $posicao = 0;
+        foreach ($rankLista as $item) {
+            $posicao = $posicao + 1;
+            if ($item["nome"] == $nome) {
+
+                return $posicao;
+            }
+        }
+    }
+
+    public static function actionGetRank() {
+        $rankLista = array();
+        $rankUser = array();
+      
+        $Criteria->order = "id";
+
+        $modelAposta = User::find()->orderby(['id'])->all();
+        $total = 0;
+        $id_user = 0;
+        foreach ($modelAposta as $item) {
+            $rankUser = array("acertos" => Rank::GetAcertos($item->id)
+                , "nome" => $item->username, "pontos" => Rank::actionGetTotal($item->id)
+                , "resultados" => Rank::GetResultados($item->id));
+            array_push($rankLista, $rankUser);
+        }
+
+        $rankLista = Rank::ordenarRank($rankLista, 'pontos', 'acertos');
+        $this->render('GetRank', array(
+            'dataProvider' => $rankLista,
+        ));
+    }
+
+    public static function actionGetTotal($id) {
+
+          
+       
+        $modelAposta = Rank::find()->where(['=', 'id_user', $id])->all();
+        $total = 0;
+        foreach ($modelAposta as $item) {
+            $total = $total + $item->idPonto->pontos;
+        }
+        return $total;
+    }
+
+    public static function GetErros($id) {
+
+       
+       
+        $modelAposta = Rank::find()->where(['=', 'id_user', $id])->all();
+        $model = Aposta::find()->where(['=', 'id_user', $id])->all();
+        $total = 0;
+        $totalAposta = 0;
+        foreach ($modelAposta as $item) {
+            $total = $total + 1;
+        }
+        foreach ($model as $item) {
+            $totalAposta = $totalAposta + 1;
+        }
+        return $totalAposta - $total;
+    }
+
+    public static function GetAcertos($id) {
+
+       
+        
+        $modelAposta = Rank::find()->where(['=', 'id_user', $id])->andWhere(['=', 'id_ponto', '1'])->all();
+        $total = 0;
+        foreach ($modelAposta as $item) {
+            $total = $total + 1;
+        }
+        return $total;
+    }
+
+    public static function GetResultados($id) {
+
+      
+       
+        $modelAposta = Rank::find()->where(['=', 'id_user', $id])->andWhere(['=', 'id_ponto', '2'])->all();
+        $total = 0;
+        foreach ($modelAposta as $item) {
+            $total = $total + 1;
+        }
+        return $total;
     }
 }

@@ -160,7 +160,7 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                                     <nav class="nav-primary hidden-xs">
                                         <ul class="nav">
                                             <li class="active">
-                                                <a href="index.php?r=confronto/index&id=0" class="active">
+                                                <a href="/confronto/index/0" class="active">
                                                     <i class="fa fa-bolt icon">
                                                         <b class="bg-danger"></b>
                                                     </i>  <span>Confrontos</span>
@@ -169,7 +169,7 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
 
                                            
                                             <li class="">
-                                                <a href="index.php?r=rank&id=" class="active">
+                                                <a href="/rank/index/<?php echo $modelUsers->id?>" class="active">
                                                     <i class="fa fa-dashboard icon">
                                                         <b class="bg-danger"></b>
                                                     </i>  <span>Meus Pontos</span>

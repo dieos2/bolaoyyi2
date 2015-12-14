@@ -24,7 +24,7 @@ HeadAsset::register($this);
 <html lang="en" class="bg-dark">
 <head>
     <meta charset="utf-8" />
-    <title>Notebook | Web Application</title>
+    <title>Bolão | Parazão</title>
     <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="stylesheet" href="/css/app.v2.css" type="text/css" />
@@ -33,9 +33,9 @@ HeadAsset::register($this);
 </head>
 <body>
     <section id="content" class="m-t-lg wrapper-md animated fadeInUp">
-        <div class="container aside-xxl"><a class="navbar-brand block" href="index.html">Notebook</a>
+        <div class="container aside-xxl"><a class="navbar-brand block" href="index.html">Bolão Parazão</a>
             <section class="panel panel-default bg-white m-t-lg">
-                <header class="panel-heading text-center"><strong>Sign in</strong> </header>
+                <header class="panel-heading text-center"><strong>Entrar</strong> </header>
    <?php $this->beginBody() ?>
         <?= Html::csrfMetaTags() ?>
 

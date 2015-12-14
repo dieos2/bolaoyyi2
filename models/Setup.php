@@ -218,5 +218,18 @@ class Setup extends \yii\db\ActiveRecord {
             return $dateStr = '';
         }
     }
+  public function aasort(&$array, $key) {
+        $sorter = array();
+        $ret = array();
 
+        foreach ($array as $ii => $va) {
+            $sorter[$ii] = $va[$key];
+        }
+        arsort($sorter);
+        foreach ($sorter as $ii => $va) {
+            $ret[$ii] = $array[$ii];
+        }
+        $array = $ret;
+        return $array;
+    }
 }
