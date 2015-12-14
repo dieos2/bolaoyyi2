@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\models\User;
 /**
  * ApostaController implements the CRUD actions for Aposta model.
  */
@@ -58,19 +58,61 @@ class ApostaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
-        $model = new Aposta();
+   
+    public function actionCreate($id_confronto,$placar_visitante, $placar_casa,$data) {
+        $model = new Aposta;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+         
+            $model->id_confronto = $id_confronto;
+             $model->placar_visitante = $placar_visitante;
+              $model->placar_casa = $placar_casa;
+               $model->data = $data;
+                 $model->id_user = User::findByUsername(Yii::$app->user->identity->username)->id;
+           
+           $apostaExiste = Aposta::find()->where(['=', 'id_confronto', $model->id_confronto])->andWhere(['=', 'id_user', $model->id_user])->one();
+           if($apostaExiste != null){
+            $model = $this->loadModel($apostaExiste->id);
+             $model->id_confronto = $id_confronto;
+             $model->placar_visitante = $placar_visitante;
+              $model->placar_casa = $placar_casa;
+               $model->data = $data;
+                $model->id_user = $model->id_user;
+           } $model->save();
+            echo json_encode($model);
+
+         
+     
+      
+    }  public function actionGetapostas($id) {
+        $this->layout = false;
+        header('Content-type: application/json');
+        $arr = array();
+      
+
+        $arrAposta = array();
+            $id_user = $id;
+            if($id_user != 0){
+           
+             $aposta = Aposta::find()->where(['=', 'id_user', $id_user])->all();
+            }  else {
+             $aposta = Aposta::find()->all();
+            }
+           
+
+        foreach ($aposta as $item) {
+            $dataHoje = strtotime(date("m/d/Y"));
+            $dataExp = $item->data;
+            array_push($arr, $item->id, $item->id_confronto, $item->id_user, $item->data, $item->placar_casa, $item->placar_visitante, ucfirst($item->idUser->username));
+            array_push($arrAposta, $arr);
+            $arr = array();
         }
-    }
 
+        echo json_encode($arrAposta);
+
+      
+    }
     /**
      * Updates an existing Aposta model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -118,4 +160,5 @@ class ApostaController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+   
 }

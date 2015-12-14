@@ -60,7 +60,7 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                         <i class="fa fa-bars"></i> 
                     </a>
                     <a href="#" class="navbar-brand" data-toggle="fullscreen">
-                        <img src="images/logo.png" class="m-r-sm">Parazão 2016</a>
+                        <img src="/images/logo.png" class="m-r-sm">Parazão 2016</a>
                     <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".nav-user">
                         <i class="fa fa-cog"></i> 
                     </a>
@@ -121,7 +121,7 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="thumb-sm avatar pull-left">
-                            <img src="images/<?= $modelUsers->username ?>.jpg">
+                            <img src="/images/<?= $modelUsers->username ?>.jpg">
                             </span><?= $modelUsers->username ?>
                           
                                

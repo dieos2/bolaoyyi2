@@ -30,14 +30,16 @@ class ConfrontoController extends Controller
      * Lists all Confronto models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id = 0)
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Confronto::find(),
-        ]);
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
+         if ($id != 0) {
+        $dataProvider = Confronto::find()->where(['=', 'id_grupo', $id])->all();
+        
+         } else {
+         $dataProvider =Confronto::find()->all();
+         }
+         return $this->render('index', [
+            'confrontos' => $dataProvider,
         ]);
     }
 
@@ -118,4 +120,5 @@ class ConfrontoController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
 }

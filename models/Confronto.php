@@ -106,4 +106,59 @@ class Confronto extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Time::className(), ['id' => 'vencedor']);
     }
+    
+    public static function GetNumeroApostaCasa($id) {
+        $model = new Aposta;
+       
+
+       
+
+        $model = Aposta::find()->where(['=', 'id_confronto', $id])->andWhere(['>' ,'placar_casa','placar_visitante'])->all();
+        $conta = 0;
+        foreach ($model as $item) {
+            $conta = $conta + 1;
+        }
+        return $conta;
+    }
+
+    public static function GetNumeroApostaVisitante($id) {
+        $model = new Aposta;
+        
+
+       
+
+        $model = Aposta::find()->where(['=', 'id_confronto', $id])->andWhere(['<', 'placar_casa','placar_visitante'])->all();
+        $conta = 0;
+        foreach ($model as $item) {
+            $conta = $conta + 1;
+        }
+        return $conta;
+    }
+
+    public static function GetPorcentagemApostaCasa($id) {
+
+        $apostasCasa = Confronto::GetNumeroApostaCasa($id);
+        $apostasVisitante = Confronto::GetNumeroApostaVisitante($id);
+
+        $total = 0;
+        if ($apostasCasa != 0 && $apostasVisitante != 0) {
+            $total = $apostasCasa / ($apostasCasa + $apostasVisitante) * 100;
+        } else if ($apostasCasa != 0 && $apostasVisitante == 0) {
+            $total = 100;
+        }
+        return $total;
+    }
+
+    public static function GetPorcentagemApostaVisitante($id) {
+        $apostasCasa = Confronto::GetNumeroApostaCasa($id);
+        $apostasVisitante = Confronto::GetNumeroApostaVisitante($id);
+
+        $total = 0;
+        if ($apostasCasa != 0 && $apostasVisitante != 0) {
+            $total = $apostasVisitante / ($apostasCasa + $apostasVisitante) * 100;
+        } else if ($apostasCasa == 0 && $apostasVisitante != 0) {
+            $total = 100;
+        }
+        return $total;
+    }
 }
