@@ -13,6 +13,7 @@ return array(
     'yii\\composer\\' => array($vendorDir . '/yiisoft/yii2-composer'),
     'yii\\codeception\\' => array($vendorDir . '/yiisoft/yii2-codeception'),
     'yii\\bootstrap\\' => array($vendorDir . '/yiisoft/yii2-bootstrap'),
+    'yii\\authclient\\' => array($vendorDir . '/yiisoft/yii2-authclient'),
     'yii\\' => array($vendorDir . '/yiisoft/yii2'),
     'kartik\\mpdf\\' => array($vendorDir . '/kartik-v/yii2-mpdf'),
     'kartik\\form\\' => array($vendorDir . '/kartik-v/yii2-widget-activeform'),

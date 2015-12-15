@@ -60,7 +60,11 @@ HeadAsset::register($this);
                     
                     <button type="submit" class="btn btn-primary">Entrar</button>
                     <div class="line line-dashed"></div>
-				
+				<?= yii\authclient\widgets\AuthChoice::widget([
+     'baseAuthUrl' => ['site/auth']
+]) ?>
+
+
 				  <?php ActiveForm::end(); ?>
 						
 			

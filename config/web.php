@@ -43,6 +43,17 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
+        'authClientCollection' => [
+  'class' => 'yii\authclient\Collection',
+  'clients' => [
+    'facebook' => [
+      'class' => 'yii\authclient\clients\Facebook',
+      'authUrl' => 'https://www.facebook.com/dialog/oauth',
+      'clientId' => '1507702859525627',
+      'clientSecret' => '1b98d4b95f72a33c2ddc024928f26b22',
+    ],
+  ],
+],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

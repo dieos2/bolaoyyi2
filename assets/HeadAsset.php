@@ -29,7 +29,7 @@ class HeadAsset extends AssetBundle {
     ];
 
     public $js = [
-    'js/jquery-1.11.0.min.js',
+   
         'js/app.v2.js',
         'js/charts/easypiechart/jquery.easy-pie-chart.js',
        'js/charts/sparkline/jquery.sparkline.min.js',

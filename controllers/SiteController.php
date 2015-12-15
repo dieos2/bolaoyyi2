@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use Yii;
@@ -16,14 +17,14 @@ use yii\filters\AccessControl;
 /**
  * Site controller
  */
-class SiteController extends Controller
-{
+class SiteController extends Controller {
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
+
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['logout', 'signup', 'index'],
@@ -51,9 +52,11 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
-    public function actions()
-    {
-        return [
+    public function actions() {
+        return [ 'auth' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'oAuthSuccess'],
+            ],
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
@@ -64,37 +67,34 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex()
-    {
-        
+    public function actionIndex() {
+
         return $this->redirect(['/confronto']);
     }
 
-    public function actionLogin()
-    {   
+    public function actionLogin() {
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
+        $userAttributes = array();
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
             return $this->renderPartial('login', [
-                'model' => $model,
+                        'model' => $model,
+                        'facebook' => $userAttributes,
             ]);
         }
     }
 
-    public function actionLogout()
-    {
+    public function actionLogout() {
         Yii::$app->user->logout();
 
         return $this->goHome();
     }
 
-    public function actionContact()
-    {
+    public function actionContact() {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
@@ -106,18 +106,16 @@ class SiteController extends Controller
             return $this->refresh();
         } else {
             return $this->render('contact', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
 
-    public function actionAbout()
-    {
+    public function actionAbout() {
         return $this->render('about');
     }
 
-    public function actionSignup()
-    {
+    public function actionSignup() {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
@@ -128,12 +126,11 @@ class SiteController extends Controller
         }
 
         return $this->render('signup', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
-    public function actionRequestPasswordReset()
-    {
+    public function actionRequestPasswordReset() {
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
@@ -146,12 +143,11 @@ class SiteController extends Controller
         }
 
         return $this->render('requestPasswordResetToken', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
-    public function actionResetPassword($token)
-    {
+    public function actionResetPassword($token) {
         try {
             $model = new ResetPasswordForm($token);
         } catch (InvalidParamException $e) {
@@ -165,9 +161,49 @@ class SiteController extends Controller
         }
 
         return $this->render('resetPassword', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
-    
-    
+
+    /**
+     * This function will be triggered when user is successfuly authenticated using some oAuth client.
+     *
+     * @param yii\authclient\ClientInterface $client
+     * @return boolean|yii\web\Response
+     */
+    public function oAuthSuccess($client) {
+        // get user data from client  
+        $userAttributes = $client->getUserAttributes();
+
+        //cuida de logar
+        if (!\Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new LoginForm();
+       // $model->email = $userAttributes['Email'];
+        $model->username = $userAttributes['name'];
+        $model->password = $userAttributes['user ID'];
+         echo json_encode($model);
+        if ($model->login()) {
+            return $this->goBack();
+        } else {
+           
+            $modelCadastro = new SignupForm();
+            $modelCadastro->email = $userAttributes['Email'];
+            $modelCadastro->username = $userAttributes['Name'];
+            $modelCadastro->password = $userAttributes['User ID'];
+        if ($user = $modelCadastro->signup()) {
+            if (Yii::$app->getUser()->login($user)) {
+                return $this->goHome();
+            }
+        }
+        }
+
+
+        //Cuida do cadastro do usuario na base
+        
+        // do some thing with user data. for example with $userAttributes['email']
+    }
+
 }

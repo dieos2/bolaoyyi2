@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\User;
 
 /**
  * RankController implements the CRUD actions for Rank model.
@@ -44,7 +45,29 @@ class RankController extends Controller
             'rank' => $rank,
         ]);
     }
+public function actionGetrank() {
+        $rankLista = array();
+        $rankUser = array();
+      
+       
 
+        $modelAposta = User::find()->orderby('id')->all();
+        $total = 0;
+        $id_user = 0;
+        foreach ($modelAposta as $item) {
+            $rankUser = array("acertos" => Rank::GetAcertos($item->id)
+                , "nome" => $item->username, "pontos" => Rank::actionGetTotal($item->id)
+                , "resultados" => Rank::GetResultados($item->id));
+            array_push($rankLista, $rankUser);
+        }
+
+        $rankLista = Rank::ordenarRank($rankLista, 'pontos', 'acertos');
+       
+         return $this->render('getrank', [
+            'dataProvider' => $rankLista,
+            
+        ]);
+    }
     /**
      * Displays a single Rank model.
      * @param integer $id

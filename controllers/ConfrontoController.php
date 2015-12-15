@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-use app\Models\Confronto;
+use app\models\Confronto;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

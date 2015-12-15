@@ -21,7 +21,7 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
 <?php BottomAsset::register($this);    ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="app">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,7 +52,7 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
 
         <?php $this->beginBody() ?>
         <?= Html::csrfMetaTags() ?>
-         <body>
+       
         <section class="vbox">
             <header class="bg-dark dk header navbar navbar-fixed-top-xs">
                 <div class="navbar-header aside-md">
@@ -199,7 +199,7 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                                                 </ul>
                                             </li>
                                             <li>
-                                                <a href="index.php?r=rank/GetRank">
+                                                <a href="/rank/getrank">
                                                     <i class="fa fa-bars icon">
                                                         <b class="bg-success"></b>
                                                     </i>
@@ -259,6 +259,6 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
         <?php $this->endBody() ?>
          
        
-    </body>
+    
 </html>
 <?php $this->endPage() ?>
