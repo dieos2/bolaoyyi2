@@ -14,7 +14,7 @@ use Yii;
  * @property Grupo $idGrupo
  * @property Time $idTime
  */
-class GrupoTime extends \yii\db\ActiveRecord
+class Grupotime extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -64,4 +64,60 @@ class GrupoTime extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Time::className(), ['id' => 'id_time']);
     }
+    
+    public static function GetNVitoriaDoTime($id) {
+            $pontos = 0;    
+            $model = new Confronto;
+           
+           
+            
+            $model = Confronto::find()->where(['=', 'vencedor', $id])->andWhere(['=','empate', '0'])->all();
+            foreach ($model as $ponto){
+                $pontos = $pontos + 1;
+            }
+        return $pontos;
+    }
+    
+    public static function GetNDerrotaDoTime($id) {
+            $pontos = 0;   
+            
+          
+           
+            $model = Confronto::find()->where(['=', 'id_time_casa', $id])->andWhere(['=','id_time_visitante', $id])
+                    ->andWhere(['!=','vencedor', $id])->andWhere(['=', 'empate', false])->all();
+            foreach ($model as $ponto){
+                $pontos = $pontos + 1;
+            }
+        return $pontos;
+    }
+    public static function GetPontosDoTime($id) {
+            $pontos = 0;    
+            $model = new Confronto;
+           
+           
+            
+            $model = Confronto::find()->where(['=', 'vencedor', $id])->andWhere(['=', 'empate', 0])->all();
+            foreach ($model as $ponto){
+                $pontos = $pontos + 3;
+            }
+             
+          
+             $model = new Confronto;
+            $model = Confronto::find()->where(['=', 'id_time_casa', $id])->andWhere(['=', 'id_time_visitante', $id])->andWhere(['=', 'empate', 1])->all();
+            foreach ($model as $ponto){
+                $pontos = $pontos + 1;
+            }
+        return $pontos;
+    }
+
+    public static function GetNEmpateDoTime($id) {
+            $pontos = 0;    
+            $model = new Confronto;
+          $model = Confronto::find()->where(['=', 'id_time_casa', $id])->andWhere(['=', 'id_time_visitante', $id])->andWhere(['=', 'empate', 1])->all();
+            foreach ($model as $ponto){
+                $pontos = $pontos + 1;
+            }
+        return $pontos;
+    }
+   
 }

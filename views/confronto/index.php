@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use app\models\User;
 use app\models\Confronto;
 use app\models\Aposta;
+use app\models\UserCadastro;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -65,8 +66,8 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)?>
                                        } 
                                        
                                     
-                                       if( $modelUsers->username == 'diego'){
-                                           echo '  <a href="index.php?r=confronto/update&id='.$data->id.'" class="btn btn-success" >Editar</a>';
+                                       if( $modelUsers->role==30){
+                                           echo '  <a href="/confronto/update/'.$data->id.'" class="btn btn-success" >Editar</a>';
                                        }?> 
                                        
                                        <input type="hidden" id="id_confronto" name="id_confronto" value="<?php echo $data->id ?>" />

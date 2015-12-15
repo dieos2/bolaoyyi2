@@ -8,6 +8,8 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Aposta;
+use app\models\Rank;
 
 /**
  * ConfrontoController implements the CRUD actions for Confronto model.
@@ -83,12 +85,55 @@ class ConfrontoController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())){
+            
+        
+           
+            if ($model->empate == 1) {
+                $model->vencedor = null;
+            }
+           
+            
+            $modelAposta = Aposta::find()->where(['=', 'id_confronto', $model->id])->all();
+
+            foreach ($modelAposta as $item) {
+                if ($item->placar_casa == $model->placar_casa && $item->placar_visitante == $model->placar_visitante) {
+                    $modelRank = new Rank;
+                    $modelRank->id_user = $item->id_user;
+                    $modelRank->data = date('Y-m-d H:i:s');
+                    $modelRank->id_aposta = $item->id;
+                    $modelRank->id_ponto = 1;
+		    $modelRank->save();
+                } else if ($model->vencedor != null) {
+                    if ($item->placar_casa > $item->placar_visitante && $model->vencedor == $model->id_time_casa) {
+                        $modelRank = new Rank;
+                        $modelRank->id_user = $item->id_user;
+                        $modelRank->data = date('Y-m-d H:i:s');
+                        $modelRank->id_aposta = $item->id;
+                        $modelRank->id_ponto = 2;
+			
+                        $modelRank->save();
+                    } else if ($item->placar_casa < $item->placar_visitante && $model->vencedor == $model->id_time_visitante) {
+                        $modelRank = new Rank;
+                        $modelRank->id_user = $item->id_user;
+                        $modelRank->data = date('Y-m-d H:i:s');
+                        $modelRank->id_aposta = $item->id;
+                        $modelRank->id_ponto = 2;
+			
+                        $modelRank->save();
+                    }
+                } else if ($item->placar_casa == $item->placar_visitante && $model->placar_casa == $model->placar_visitante) {
+                    $modelRank = new Rank;
+                    $modelRank->id_user = $item->id_user;
+                    $modelRank->data = date('Y-m-d H:i:s');
+                    $modelRank->id_aposta = $item->id;
+                    $modelRank->id_ponto = 2;
+			
+                    $modelRank->save();
+                }
+            }
+            if ($model->save())
+                $this->redirect(array('view', 'id' => $model->id));
         }
     }
 

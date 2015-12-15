@@ -8,11 +8,13 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Grupo;
+use app\models\Setup;
 
 /**
  * GrupoTimeController implements the CRUD actions for GrupoTime model.
  */
-class GrupoTimeController extends Controller
+class GrupotimeController extends Controller
 {
     public function behaviors()
     {
@@ -30,15 +32,31 @@ class GrupoTimeController extends Controller
      * Lists all GrupoTime models.
      * @return mixed
      */
-    public function actionIndex()
-    {
-        $dataProvider = new ActiveDataProvider([
-            'query' => GrupoTime::find(),
-        ]);
+    public function actionIndex($id=0)
+    {  
+        $model = new GrupoTime;
+        $classificacao = array();
+        if ($id != 0) {
+           $grupo = Grupo::find($id)->one();
+            
+            $model = GrupoTime::find()->where(['=', 'id_grupo', $id])->all();
+            foreach ($model as $item) {
+                $itemArray = array("id" => $item->id
+                        ,"id_grupo" => $item->id_grupo
+                        ,"id_time" => $item->getIdTime()->one()->nome
+                        ,"escudo" => $item->getIdTime()->one()->escudo
+                        ,"pontos" => GrupoTime::GetPontosDoTime($item->id_time)
+                        , "vitoria" => GrupoTime::GetNVitoriaDoTime($item->id_time)
+                        , "empate" => GrupoTime::GetNEmpateDoTime($item->id_time)
+                        , "derrota" => GrupoTime::GetNDerrotaDoTime($item->id_time));
+                array_push($classificacao, $itemArray);
+            }
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
+             return $this->render('index', [
+            'model' => Setup::aasort($classificacao,'pontos'),
+                'grupo' => $grupo
         ]);
+        } 
     }
 
     /**

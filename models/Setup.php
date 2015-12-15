@@ -218,7 +218,7 @@ class Setup extends \yii\db\ActiveRecord {
             return $dateStr = '';
         }
     }
-  public function aasort(&$array, $key) {
+  public static function aasort(&$array, $key) {
         $sorter = array();
         $ret = array();
 
@@ -232,4 +232,5 @@ class Setup extends \yii\db\ActiveRecord {
         $array = $ret;
         return $array;
     }
+   
 }

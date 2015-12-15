@@ -142,7 +142,7 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="index.php?r=site/logout" data-toggle="ajaxModal">Logout</a> 
+                                <a href="/site/logout" data-toggle="">Logout</a> 
                             </li>
                         </ul>
                     </li>
@@ -186,14 +186,15 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                                                     <span>Grupos</span> 
                                                 </a>
                                                 <ul class="nav lt">
+                                                   <?php foreach (\app\models\Grupo::find()->all() as $grupo){ ?>
+                                                       
                                                     <li>
-                                                        <a href="index.php?r=grupoTime&id=11"> <i class="fa fa-angle-right"></i>  <span>A1</span> 
+                                                        <a href="/grupotime/index/<?php echo $grupo->id ?>"> <i class="fa fa-angle-right"></i>  <span><?php echo $grupo->nome ?></span> 
                                                         </a>
                                                     </li>
-                                                    <li>
-                                                        <a href="index.php?r=grupoTime&id=12"> <i class="fa fa-angle-right"></i>  <span>A2</span> 
-                                                        </a>
-                                                    </li>
+                                                   <?php } ?>
+                                                   
+                                                  
                                                  
                                                 </ul>
                                             </li>
