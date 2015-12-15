@@ -183,16 +183,16 @@ class SiteController extends Controller {
         $model = new LoginForm();
        // $model->email = $userAttributes['Email'];
         $model->username = $userAttributes['name'];
-        $model->password = $userAttributes['user ID'];
+        $model->password = $userAttributes['id'];
          echo json_encode($model);
         if ($model->login()) {
             return $this->goBack();
         } else {
            
             $modelCadastro = new SignupForm();
-            $modelCadastro->email = $userAttributes['Email'];
-            $modelCadastro->username = $userAttributes['Name'];
-            $modelCadastro->password = $userAttributes['User ID'];
+            $modelCadastro->email = $userAttributes['email'];
+            $modelCadastro->username = str_replace(" ","",$userAttributes['name']);
+            $modelCadastro->password = $userAttributes['id'];
         if ($user = $modelCadastro->signup()) {
             if (Yii::$app->getUser()->login($user)) {
                 return $this->goHome();
