@@ -67,7 +67,7 @@ class SiteController extends Controller {
 
     public function actionIndex() {
 
-        return $this->redirect(['/confronto']);
+        return $this->renderPartial('index');
     }
 
     public function actionLogin() {
