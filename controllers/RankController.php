@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-use app\Models\Rank;
+use app\models\Rank;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

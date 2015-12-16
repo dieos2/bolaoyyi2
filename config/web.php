@@ -49,9 +49,14 @@ $config = [
     'facebook' => [
       'class' => 'yii\authclient\clients\Facebook',
       'authUrl' => 'https://www.facebook.com/dialog/oauth',
-      'clientId' => '1507702859525627',
-      'clientSecret' => '1b98d4b95f72a33c2ddc024928f26b22',
+      'clientId' => '861473337301977',
+      'clientSecret' => 'f88363a78026b261172ac95b5f737340',
     ],
+      'google' => [
+                'class' => 'yii\authclient\clients\GoogleOAuth',
+                'clientId' => 'google_client_id',
+                'clientSecret' => 'google_client_secret',
+            ],
   ],
 ],
         'log' => [

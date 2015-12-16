@@ -13,6 +13,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\models\User;
 
 /**
  * Site controller
@@ -27,7 +28,7 @@ class SiteController extends Controller {
 
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'index'],
+                'only' => ['logout', 'signup'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -39,11 +40,7 @@ class SiteController extends Controller {
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                    [
-                        'actions' => ['index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
+                   
                 ],
             ],
         ];
@@ -56,6 +53,7 @@ class SiteController extends Controller {
         return [ 'auth' => [
                 'class' => 'yii\authclient\AuthAction',
                 'successCallback' => [$this, 'oAuthSuccess'],
+                'successUrl' => Yii::$app->homeUrl,
             ],
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -76,14 +74,14 @@ class SiteController extends Controller {
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-        $userAttributes = array();
+        
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
             return $this->renderPartial('login', [
                         'model' => $model,
-                        'facebook' => $userAttributes,
+                      
             ]);
         }
     }
@@ -176,18 +174,12 @@ class SiteController extends Controller {
         $userAttributes = $client->getUserAttributes();
 
         //cuida de logar
-        if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-       // $model->email = $userAttributes['Email'];
-        $model->username = $userAttributes['name'];
-        $model->password = $userAttributes['id'];
-         echo json_encode($model);
-        if ($model->login()) {
-            return $this->goBack();
-        } else {
+        
+          $user = User::find()->where(['=','email',$userAttributes['email']])->one();
+    if(Yii::$app->user->login($user)){
+        return $this->goHome();
+    }
+    else{
            
             $modelCadastro = new SignupForm();
             $modelCadastro->email = $userAttributes['email'];
