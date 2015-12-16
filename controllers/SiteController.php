@@ -177,7 +177,8 @@ class SiteController extends Controller {
         
           $user = User::find()->where(['=','email',$userAttributes['email']])->one();
     if($user != null){
-        Yii::$app->user->login($user);
+        Yii::$app->user->login($user);  
+        copy('http://graph.facebook.com/'.$user->username.'/picture?type=large', 'images/'.$user->username.'.jpeg');
         return $this->goHome();
     }
     else{
@@ -193,7 +194,7 @@ class SiteController extends Controller {
             $modelPerfil->data = date('Y-m-d');
             $modelPerfil->nome = $nome[0];
             $modelPerfil->sobrenome = $nome[1];
-            copy('http://graph.facebook.com/'.$modelCadastro->username.'/picture?type=square', 'images/'.$modelCadastro->username.'.jpeg');
+            copy('http://graph.facebook.com/'.$modelCadastro->username.'/picture?type=large', 'images/'.$modelCadastro->username.'.jpeg');
             $modelPerfil->foto = $modelCadastro->username.'.jpeg';
             $modelPerfil->save();
             

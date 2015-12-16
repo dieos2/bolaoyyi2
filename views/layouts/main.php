@@ -121,8 +121,8 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="thumb-sm avatar pull-left">
-                            <img src="/images/<?= Perfil::find($modelUsers->id)->one()->foto ?>">
-                            </span><?= Perfil::find($modelUsers->id)->one()->nome ?>
+                            <img src="/images/<?= Perfil::find($modelUsers->id)->where(['=', 'id', $modelUsers->id])->one()->foto ?>">
+                            </span><?= Perfil::find()->where(['=', 'id', $modelUsers->id])->one()->nome ?>
                           
                                
                         </a>
@@ -204,7 +204,7 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                                                         <b class="bg-success"></b>
                                                     </i>
 
-                                                    <span>Rank</span>
+                                                    <span>Ranking</span>
                                                 </a>
 
                                             </li>

@@ -36,7 +36,7 @@ class Perfil extends \yii\db\ActiveRecord
             [['id', 'sexo'], 'integer'],
             [['data'], 'safe'],
             [['nome', 'sobrenome'], 'string', 'max' => 50],
-            [['foto'], 'string', 'max' => 20],
+            [['foto'], 'string', 'max' => 40],
             [['id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id' => 'id']],
         ];
     }

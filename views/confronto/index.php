@@ -15,10 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
  <section class="vbox">
                             <section class="scrollable padder">
  <ul class="breadcrumb no-border no-radius b-b b-light pull-in">
-                                <li><a href="index.php?r=confronto/index&id=0">Todos</a></li>
-                                <li><a href="index.php?r=confronto/index&id=11">A1</a></li>
-                                <li class="active"><a href="index.php?r=confronto/index&id=12">A2</a></li>
-                                 
+                                <li><a href="/confronto/index/0">Todos</a></li>
+                                  <?php foreach (\app\models\Grupo::find()->all() as $grupo){ ?>
+                                <li><a href="/confronto/index/<?php echo $grupo->id?>"><?php echo $grupo->nome?></a></li>
+                               
+                                  <?php }?>
                             </ul>
 <div class="m-b-md"> <h3 class="m-b-none">Confrontos</h3> </div>
    <?php foreach($confrontos as $data){ /* @var $this ConfrontoController */

@@ -3,7 +3,8 @@
 use app\models\User;
 use app\models\Rank;
 use app\models\Perfil;
-$modelUsers =  User::findByUsername(Yii::$app->user->identity->username) 
+$modelUsers =  User::findByUsername(Yii::$app->user->identity->username);
+$perfil = Perfil::find()->where(['=', 'id', $modelUsers->id])->one();
         ?>
 <section class="vbox">
                         <header class="header bg-white b-b b-light">
@@ -17,11 +18,11 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                                             <section class="panel panel-default">
                                                 <header class="panel-heading bg-danger lt no-border">
                                                     <div class="clearfix"><a href="#" class="pull-left thumb avatar b-3x m-r">
-                                                        <img src='/images/<?php  echo Perfil::find($modelUsers->id)->one()->foto ?>' class="img-circle">
+                                                        <img src='/images/<?php  echo $perfil->foto ?>' class="img-circle">
                                                     </a>
                                                         <div class="clear">
                                                             <div class="h3 m-t-xs m-b-xs text-white"><?php
-                                    Perfil::find($modelUsers->id)->one()->nome?> <i class="fa fa-circle text-white pull-right text-xs m-t-sm"></i></div>
+                                    $perfil->nome?> <i class="fa fa-circle text-white pull-right text-xs m-t-sm"></i></div>
                                                             <small class="text-muted"></small> </div>
                                                     </div>
                                                 </header>
@@ -76,10 +77,10 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                                                 <div class="inline">
                                                     <div class="easypiechart" data-percent="75" data-line-width="5" data-bar-color="#4cc0c1" data-track-color="#f5f5f5" data-scale-color="false" data-size="130" data-line-cap='butt' data-animate="1000">
                                                         <div class="thumb-lg">
-                                                            <img src="/images/<?php echo Perfil::find($modelUsers->id)->one()->foto ?>" class="img-circle">
+                                                            <img src="/images/<?php echo $perfil->foto ?>" class="img-circle">
                                                         </div>
                                                     </div>
-                                                    <div class="h4 m-t m-b-xs"><?php echo $modelUsers->username?></div>
+                                                    <div class="h4 m-t m-b-xs"><?php echo $perfil->nome?></div>
                                                     <small class="text-muted m-b">Art director</small> </div>
                                             </div>
                                         </div>

@@ -56,11 +56,14 @@ public function actionGetrank() {
         $total = 0;
         $id_user = 0;
         foreach ($modelAposta as $item) {
+            $perfil = Perfil::find()->where(['=', 'id', $item->id])->one();
+            if($perfil != null){
             $rankUser = array("acertos" => Rank::GetAcertos($item->id)
-                , "nome" => Perfil::find($item->id)->one()->nome, "pontos" => Rank::actionGetTotal($item->id)
-                    ,"foto" => Perfil::find($item->id)->one()->foto
+                , "nome" => $perfil->nome, "pontos" => Rank::actionGetTotal($item->id)
+                    ,"foto" => $perfil->foto
                 , "resultados" => Rank::GetResultados($item->id));
             array_push($rankLista, $rankUser);
+            }
         }
 
         $rankLista = Rank::ordenarRank($rankLista, 'pontos', 'acertos');
