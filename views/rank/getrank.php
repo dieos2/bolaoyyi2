@@ -25,7 +25,7 @@
                           echo '<td>'.$conta.'º</td>';
                     }
                      echo '<td><span class="thumb-sm avatar pull-left">
-                                <img src="/images/'.$item["nome"].'.jpg" />
+                                <img src="/images/'.$item["foto"].'.jpg" />
                             </span>  ' . strtoupper($item["nome"]).'</td>';
                  
                    echo '<td>'.$item["pontos"].'</td>';

@@ -14,7 +14,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\models\User;
-
+use app\models\Perfil;
 /**
  * Site controller
  */
@@ -176,16 +176,27 @@ class SiteController extends Controller {
         //cuida de logar
         
           $user = User::find()->where(['=','email',$userAttributes['email']])->one();
-    if(Yii::$app->user->login($user)){
+    if($user != null){
+        Yii::$app->user->login($user);
         return $this->goHome();
     }
     else{
            
             $modelCadastro = new SignupForm();
             $modelCadastro->email = $userAttributes['email'];
-            $modelCadastro->username = str_replace(" ","",$userAttributes['name']);
+            $modelCadastro->username = $userAttributes['id'];
             $modelCadastro->password = $userAttributes['id'];
+            $nome = explode(" ",$userAttributes['name']); 
         if ($user = $modelCadastro->signup()) {
+            $modelPerfil = new Perfil();
+            $modelPerfil->id = $user->id;
+            $modelPerfil->data = date('Y-m-d');
+            $modelPerfil->nome = $nome[0];
+            $modelPerfil->sobrenome = $nome[1];
+            copy('http://graph.facebook.com/'.$modelCadastro->username.'/picture?type=square', 'images/'.$modelCadastro->username.'.jpeg');
+            $modelPerfil->foto = $modelCadastro->username.'.jpeg';
+            $modelPerfil->save();
+            
             if (Yii::$app->getUser()->login($user)) {
                 return $this->goHome();
             }

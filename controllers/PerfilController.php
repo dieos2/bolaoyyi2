@@ -42,7 +42,27 @@ class PerfilController extends Controller
        
         return $this->render('view');
     }
+ public function actionSenha() {
+      
+            $modelUser =  User::model()->findByPk($_POST['id']);
+            $modelUser->password = $_POST['passwordNova'];
+            $modelUser->senha = 1;
+            $modelUser->update();
+            $this->redirect(array('site/index'));
+                
 
+    }
+     public function actionTrocaSenha() {
+            $model =  new User;
+            $model = User::model()->findByPk(Yii::app()->user->getId());
+            if($model->senha == 0){
+            $this->renderPartial('trocasenha');
+            }else
+            {
+                   $this->redirect(array('site/index'));
+            }
+
+    }
     /**
      * Creates a new TituloDespesa model.
      * If creation is successful, the browser will be redirected to the 'view' page.

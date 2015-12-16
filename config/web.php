@@ -51,6 +51,7 @@ $config = [
       'authUrl' => 'https://www.facebook.com/dialog/oauth',
       'clientId' => '861473337301977',
       'clientSecret' => 'f88363a78026b261172ac95b5f737340',
+        'scope' => 'public_profile email user_friends ',
     ],
       'google' => [
                 'class' => 'yii\authclient\clients\GoogleOAuth',

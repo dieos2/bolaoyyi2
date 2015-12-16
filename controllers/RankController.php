@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\User;
+use app\models\Perfil;
 
 /**
  * RankController implements the CRUD actions for Rank model.
@@ -56,7 +57,8 @@ public function actionGetrank() {
         $id_user = 0;
         foreach ($modelAposta as $item) {
             $rankUser = array("acertos" => Rank::GetAcertos($item->id)
-                , "nome" => $item->username, "pontos" => Rank::actionGetTotal($item->id)
+                , "nome" => Perfil::find($item->id)->one()->nome, "pontos" => Rank::actionGetTotal($item->id)
+                    ,"foto" => Perfil::find($item->id)->one()->foto
                 , "resultados" => Rank::GetResultados($item->id));
             array_push($rankLista, $rankUser);
         }

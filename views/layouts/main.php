@@ -9,7 +9,7 @@ use app\assets\BottomAsset;
 use yii\widgets\Alert;
 use app\models\Setup;
 use app\models\User;
-
+use app\models\Perfil;
 /* @var $this \yii\web\View */
 /* @var $content string */
 /* @var $model app\models\Sala */
@@ -121,8 +121,8 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="thumb-sm avatar pull-left">
-                            <img src="/images/<?= $modelUsers->username ?>.jpg">
-                            </span><?= $modelUsers->username ?>
+                            <img src="/images/<?= Perfil::find($modelUsers->id)->one()->foto ?>">
+                            </span><?= Perfil::find($modelUsers->id)->one()->nome ?>
                           
                                
                         </a>
@@ -131,7 +131,7 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                             <li> <a href="#">Settings</a> 
                             </li>
                             <li>
-                                <a href="index.php?r=perfil/trocasenha">Trocar Senha</a>
+                                <a href="/perfil/trocasenha">Trocar Senha</a>
                             </li>
                             <li>
                                 <a href="#">
