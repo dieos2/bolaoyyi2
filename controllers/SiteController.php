@@ -117,13 +117,18 @@ class SiteController extends Controller {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
+                  $modelPerfil = new Perfil();
+            $modelPerfil->id = $user->id;
+            $modelPerfil->data = date('Y-m-d');
+            $modelPerfil->nome = $user->username;
+            $modelPerfil->save();
                 if (Yii::$app->getUser()->login($user)) {
                     return $this->goHome();
                 }
             }
         }
 
-        return $this->render('signup', [
+        return $this->renderPartial('signup', [
                     'model' => $model,
         ]);
     }

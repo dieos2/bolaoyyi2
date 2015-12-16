@@ -65,7 +65,9 @@ HeadAsset::register($this);
                         <span class="fa fa-facebook"></span>
                         Logar com Facebook
                     </a>
-                   
+                     <div class="line line-dashed"></div>
+          <p class="text-muted text-center"><small>Você ainda não tem uma conta?</small></p>
+          <a href="/site/signup" class="btn btn-default btn-block">Cadastrar-se</a>
 
 
                     <?php ActiveForm::end(); ?>
