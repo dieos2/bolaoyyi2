@@ -65,6 +65,11 @@ HeadAsset::register($this);
             </label>
           </div>
           <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <div class="line line-dashed"></div>
+            <a href="http://bolaoparazao.casadogui.com.br/site/auth?authclient=facebook" class="btn btn-block btn-social btn-facebook">
+                        <span class="fa fa-facebook"></span>
+                        Entrar com Facebook
+                    </a>
           <div class="line line-dashed"></div>
           <p class="text-muted text-center"><small>Você já tem uma conta?</small></p>
           <a href="/site/login" class="btn btn-default btn-block">Logar</a>
@@ -95,22 +100,3 @@ HeadAsset::register($this);
 </body>
 </html>
 <?php $this->endPage() ?>
-
-<div class="site-signup">
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>Please fill out the following fields to signup:</p>
-
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'form-signup', 'action' => '/site/signup']); ?>
-                <?= $form->field($model, 'username') ?>
-                <?= $form->field($model, 'email') ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
-                <div class="form-group">
-                    <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-                </div>
-            <?php ActiveForm::end(); ?>
-        </div>
-    </div>
-</div>

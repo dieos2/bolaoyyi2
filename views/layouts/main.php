@@ -107,7 +107,11 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                             </div>
                         </section>
                     </li>
-
+<li>
+          <div class="m-t m-l">
+            <a href="/site/index" class="dropdown-toggle btn btn-xs btn-primary" title="Upgrade"><i class="fa fa-long-arrow-up"></i></a>
+          </div>
+        </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right hidden-xs nav-user">
                     <li class="hidden-xs">
@@ -166,7 +170,7 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                                                     </i>  <span>Confrontos</span>
                                                 </a>
                                             </li>
-
+ 
                                            
                                             <li class="">
                                                 <a href="/rank/index/<?php echo $modelUsers->id?>" class="active">
@@ -225,8 +229,7 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                     </aside>
                     <!-- /.aside -->
                     <section id="content">
-                        <section class="vbox">
-                            <section class="scrollable padder">
+                       
 
                 <?= $content ?>
 

@@ -201,4 +201,32 @@ class Rank extends \yii\db\ActiveRecord
         }
         return $total;
     }
-}
+    public static function GetPosicao($id){
+         $rankLista = array();
+        $rankUser = array();
+      
+       
+       
+        $modelAposta = User::find()->orderby('id')->all();
+        $total = 0;
+        $id_user = 0;
+        foreach ($modelAposta as $item) {
+            $perfil = Perfil::find()->where(['=', 'id', $item->id])->one();
+            if($perfil != null){
+            $rankUser = array("acertos" => Rank::GetAcertos($item->id)
+                , "nome" => $perfil->nome
+                    ,"id"=> $item->id
+                    , "pontos" => Rank::actionGetTotal($item->id)
+                    ,"foto" => $perfil->foto
+                , "resultados" => Rank::GetResultados($item->id));
+            array_push($rankLista, $rankUser);
+            }
+        }
+
+        $rankLista = Rank::ordenarRank($rankLista, 'pontos', 'acertos');
+        $key = array_search($id, array_column($rankLista, 'id'));
+        return $key+1;
+    }
+            
+    
+        }
