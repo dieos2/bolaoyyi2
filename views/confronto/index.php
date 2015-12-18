@@ -95,55 +95,65 @@ $modelUsers = User::findByUsername(Yii::$app->user->identity->username)
                         }(document, 'script', 'facebook-jssdk'));</script>
                     <section class="panel panel-default">
                         <header class="panel-heading font-bold"><?php echo date_format($date, 'd-m-Y H:i'); ?> - <a id="verAposta-<?php echo $data->id ?>" data-id="<?php echo $data->id ?>" class="btn verAposta btn-info">Ver Apostas</a> </header>
-                        <div class="panel-body">
+                        <div class="panel-body" style="padding-left: 100px; padding-bottom: 10px;">
                             <form id="<?php echo $data->id ?>" class="form-inline" role="form" data-validate="parsley">
-                                <div class="" style="width: 30%;display: initial;">
-                                    <label>
-                                        <?php
-                                        if ($data->placar_casa != null) {
-                                            echo '<span class="label bg-dark">' . $data->placar_casa . '</span>';
-                                        }
-                                        ?>
-                                        <img src="/images/<?php echo $data->idTimeCasa->escudo ?>" /> <?php echo $data->idTimeCasa->nome; ?></label>
-                                </div> 
-                                <div class="form-group" style="width: 26px; display: inline-block;">
+                                <div class="divContainerMarcote">
+                                    <div class='divMascoteIcon' style="background-image: url('/images/41/icon_mascote.png');">
+
+                                    </div> 
+                                     <div class="divEscudo casa">
+                                         <span><?php echo strtoupper($data->idTimeCasa->nome); ?></span>
+                                    <img src="/images/<?php echo $data->idTimeCasa->escudo ?>" />
+                                     </div>
+                                </div>
+
+                                <div class="form-group" style="width: 26px; float: left;margin-top: 15px">
                                     <div class="input-group spinner">
                                         <div class="input-group-btn-vertical">
                                             <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                            <input disabled class="c<?php echo $data->id ?> placar" type="text" data-notblank="true" data-maxlength="2" id="placar_casa" name="placar_casa" value="0">
                                             <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                        </div>   <input class="c<?php echo $data->id ?>" type="text" data-notblank="true" data-maxlength="2" id="placar_casa" name="placar_casa" style="width: 100%;text-align: center;" value="0">
+                                        </div>   
+
 
                                     </div>
 
-                                </div> x
-                                <div class="form-group" style="width: 26px; display: inline-block;">
-                                    <div class="input-group spinner">
-
-                                        <input  class="v<?php echo $data->id ?>" type="text" data-notblank="true" data-maxlength="2" id="placar_visitante" name="placar_visitante" style="width: 100%;text-align: center;" value="0">
-                                        <div class="input-group-btn-vertical">
-                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                        </div>   </div>
-                                </div> <div class="" style="width: 30%;display: initial;">
-                                    <label>
-                                        <?php echo $data->idTimeVisitante->nome; ?><img src="/images/<?php echo $data->idTimeVisitante->escudo ?>" /> <?php
-                                        if ($data->placar_casa != null) {
-                                            echo '<span class="label bg-dark">' . $data->placar_visitante . '</span>';
-                                        }
-                                        ?></label>
-                                </div>
-                                <?php
+                                </div> <div style="float: left;
+    width: 12%;
+    text-align: center;">  <?php
                                 if (date("Y-m-d H:i:s") > date_format($date, 'Y-m-d 15:00')) {
-                                    echo '<a id="btn-' . $data->id . '" data-idConfronto="' . $data->id . '" data-idGrupo="' . $data->id_grupo . '" class="btn btn-success" disabled="disabled" >Apostar</a>';
+                                    echo '<a style="float: left;margin: 31px 0 0 0; id="btn-' . $data->id . '" data-idConfronto="' . $data->id . '" data-idGrupo="' . $data->id_grupo . '" class="btn btn-success" disabled="disabled" >Apostar</a>';
                                 } else {
-                                    echo '<a  id="btn-' . $data->id . '" data-idConfronto="' . $data->id . '" data-idGrupo="' . $data->id_grupo . '" class="btn btn-success">Apostar</a>';
+                                    echo '<a style="margin: 22px 0 5px 0;"  id="btn-' . $data->id . '" data-idConfronto="' . $data->id . '" data-idGrupo="' . $data->id_grupo . '" class="btn btn-success">Apostar</a>';
                                 }
-
-
+                                ?>  <?php
                                 if ($modelUsers->role == 30) {
-                                    echo '  <a href="/confronto/update/' . $data->id . '" class="btn btn-success" >Editar</a>';
+                                    echo '  <a style="" href="/confronto/update/' . $data->id . '" class="btn btn-success" >Editar</a>';
                                 }
                                 ?> 
+                                    </div>
+                                <div class="form-group" style="width: 26px; float:left; margin-top: 15px">
+                                    <div class="input-group spinner">
+
+
+                                        <div class="input-group-btn-vertical">
+                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                            <input disabled  class="v<?php echo $data->id ?> placar" type="text" data-notblank="true" data-maxlength="2" id="placar_visitante" name="placar_visitante" style="" value="0">
+                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                        </div>   </div>
+                                </div> 
+                                <div class="divContainerMarcote">
+                                    <div class='divMascoteIcon visitor' style="background-image: url('/images/40/icon_mascote.png');">
+                                    </div>
+                                    <div class="divEscudo visitante">
+                                    <img src="/images/<?php echo $data->idTimeVisitante->escudo ?>" />
+                                    <span>
+                                        <?php echo strtoupper($data->idTimeVisitante->nome); ?></span>
+                                    </div>
+                                   
+                                </div>
+
+                               
 
                                 <input type="hidden" id="id_confronto" name="id_confronto" value="<?php echo $data->id ?>" />
                                 <input type="hidden" id="id_user" name="id_user" value="<?php echo $modelUsers->id; ?>" />
@@ -179,11 +189,15 @@ $modelUsers = User::findByUsername(Yii::$app->user->identity->username)
                                 </div>
                             <?php } ?>
 
-                        </div> 
+                        </div>  <div id='barraTorcida' style="    margin-top: -20px;">  
+                     <div style="
+    position: absolute;
+"><img src="/images/barraTorcida.png" alt=""></div>
                         <div class="progress m-t-sm">
+                          
                             <div class="progress-bar progress-bar-success" data-toggle="tooltip" data-original-title="<?php echo $data->GetNumeroApostaCasa($data->id) ?>" style="width: <?php echo $data::GetPorcentagemApostaCasa($data->id) ?>%"></div>
                             <div class="progress-bar progress-bar-primary" data-toggle="tooltip" data-original-title="<?php echo $data->GetNumeroApostaVisitante($data->id) ?>" style="width: <?php echo $data::GetPorcentagemApostaVisitante($data->id) ?>%"></div> 
-                            </di> 
+                            </div> </div> 
                     </section>
 
 
@@ -275,7 +289,7 @@ $modelUsers = User::findByUsername(Yii::$app->user->identity->username)
                 url: "/aposta/getapostas/<?= User::findByUsername(Yii::$app->user->identity->username)->id ?>",
                 dataType: "json",
                 success: function (response, status) {
-                    debugger;
+                  
 
 
                     for (var i = 0; response.length > i; i++) {
@@ -298,10 +312,10 @@ $modelUsers = User::findByUsername(Yii::$app->user->identity->username)
                 data: "id=0",
                 dataType: "json",
                 success: function (response, status) {
-                    debugger;
+                   
 
                     for (var i = 0; response.length > i; i++) {
-                        debugger;
+                       
                         var divAposta = jQuery('.divApostas_' + response[i][0]);
                         if (divAposta.length > 0) {
                             jQuery('.divApostas_' + response[i][0]).find('input[id=placar_casa]').val(response[i][4]);
@@ -335,7 +349,7 @@ $modelUsers = User::findByUsername(Yii::$app->user->identity->username)
             });
         }
         jQuery('.verAposta').click(function () {
-            debugger;
+          
             AtualizeApostas();
             var id = jQuery(this).attr('data-id');
             var teste = jQuery('#verApostaDiv-' + id).attr('style');
@@ -349,7 +363,7 @@ $modelUsers = User::findByUsername(Yii::$app->user->identity->username)
         });
         jQuery('.btn-success').click(function () {
 
-            debugger;
+          
             var id = jQuery(this).attr('data-idConfronto');
             var id_confronto = jQuery('#' + id).find('input[id=id_confronto]').val();
             var placar_casa = jQuery('#' + id).find('input[id=placar_casa]').val();
@@ -363,7 +377,7 @@ $modelUsers = User::findByUsername(Yii::$app->user->identity->username)
                     data: "id_confronto=" + id_confronto + "&placar_casa=" + placar_casa + "&placar_visitante=" + placar_visitante + "&id_user=" + id_user + "&data=" + data,
                     dataType: "json",
                     success: function (response, status) {
-                        debugger;
+                       
                         jQuery('#btn-' + id).html('ok');
                         AtualizeApostas();
                     }

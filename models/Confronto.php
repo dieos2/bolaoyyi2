@@ -113,10 +113,12 @@ class Confronto extends \yii\db\ActiveRecord
 
        
 
-        $model = Aposta::find()->where(['=', 'id_confronto', $id])->andWhere(['>' ,'placar_casa','placar_visitante'])->all();
+        $model = Aposta::find()->where(['=', 'id_confronto', $id])->all();
         $conta = 0;
         foreach ($model as $item) {
+            if($item->placar_casa > $item->placar_visitante){
             $conta = $conta + 1;
+            }
         }
         return $conta;
     }
@@ -127,10 +129,12 @@ class Confronto extends \yii\db\ActiveRecord
 
        
 
-        $model = Aposta::find()->where(['=', 'id_confronto', $id])->andWhere(['<', 'placar_casa','placar_visitante'])->all();
+        $model = Aposta::find()->where(['=', 'id_confronto', $id])->all();
         $conta = 0;
         foreach ($model as $item) {
+            if($item->placar_casa < $item->placar_visitante){
             $conta = $conta + 1;
+            }
         }
         return $conta;
     }

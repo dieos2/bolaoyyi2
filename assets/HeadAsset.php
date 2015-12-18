@@ -24,6 +24,7 @@ class HeadAsset extends AssetBundle {
     public $css = [
     'css/app.v2.css',
     'css/font.css',
+        'confronto.css',
     'js/calendar/bootstrap_calendar.css',
  
     ];
