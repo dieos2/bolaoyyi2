@@ -42,7 +42,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
   left: 4px;
 }
 .divMascoteIcon{
-    width: 100%;float: left;  height: 112px
+    width: 100%;float: left;  height: 100%;
 }
 .divContainerMarcote{
         float: left;
@@ -94,14 +94,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
    margin: 10px 0px 10px 4px;
    
 }
-div.visitor{
-    -moz-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-    filter: FlipH;
-    -ms-filter: "FlipH";
-}
+
 
 #barraTorcida .progress{
     height: 87px;

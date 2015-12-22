@@ -25,6 +25,7 @@ class HeadAsset extends AssetBundle {
     'css/app.v2.css',
     'css/font.css',
         'confronto.css',
+        'css/colorpicker.css',
     'js/calendar/bootstrap_calendar.css',
  
     ];
@@ -40,7 +41,8 @@ class HeadAsset extends AssetBundle {
         'js/charts/flot/jquery.flot.grow.js',
         'js/charts/flot/demo.js',
         'js/calendar/bootstrap_calendar.js',
-        'js/calendar/demo.js',
+        
        ' js/sortable/jquery.sortable.js',
+        'js/colorpicker.js'
     ];
 }

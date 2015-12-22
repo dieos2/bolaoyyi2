@@ -10,6 +10,11 @@ use Yii;
  * @property integer $id
  * @property string $nome
  * @property string $escudo
+ * @property string $icon_mascote
+ * @property string $mascote
+ * @property string $cor_primaria
+ * @property string $cor_secundaria
+ * @property string $icon_mascote_i
  *
  * @property Confronto[] $confrontos
  * @property Confronto[] $confrontos0
@@ -32,8 +37,10 @@ class Time extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'escudo'], 'required'],
+            [['nome', 'escudo', 'icon_mascote', 'mascote', 'cor_primaria', 'cor_secundaria', 'icon_mascote_i'], 'required'],
             [['nome', 'escudo'], 'string', 'max' => 100],
+            [['icon_mascote', 'mascote', 'icon_mascote_i'], 'string', 'max' => 50],
+            [['cor_primaria', 'cor_secundaria'], 'string', 'max' => 20],
         ];
     }
 
@@ -46,6 +53,11 @@ class Time extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nome' => 'Nome',
             'escudo' => 'Escudo',
+            'icon_mascote' => 'Icon Mascote',
+            'mascote' => 'Mascote',
+            'cor_primaria' => 'Cor Primaria',
+            'cor_secundaria' => 'Cor Secundaria',
+            'icon_mascote_i' => 'Icon Mascote I',
         ];
     }
 

@@ -22,9 +22,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'nome',
-            'escudo',
+           
+           
+             [
+                                'attribute' => 'escudo',
+                                'label' => 'Escudo',
+                                'format' => 'raw',
+                                'value' => function ($model) {
+                                        return "<img src='/images/".$model->id."/".$model->escudo."'/>";
+                                }
+                                ], 'nome',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

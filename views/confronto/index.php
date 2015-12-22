@@ -98,12 +98,12 @@ $modelUsers = User::findByUsername(Yii::$app->user->identity->username)
                         <div class="panel-body" style="padding-left: 100px; padding-bottom: 10px;">
                             <form id="<?php echo $data->id ?>" class="form-inline" role="form" data-validate="parsley">
                                 <div class="divContainerMarcote">
-                                    <div class='divMascoteIcon' style="background-image: url('/images/41/icon_mascote.png');">
+                                    <div class='divMascoteIcon' style="background-image: url('/images/<?= $data->idTimeCasa->id?>/<?= $data->idTimeCasa->icon_mascote?>');    background-repeat: no-repeat;">
 
                                     </div> 
                                      <div class="divEscudo casa">
-                                         <span><?php echo strtoupper($data->idTimeCasa->nome); ?></span>
-                                    <img src="/images/<?php echo $data->idTimeCasa->escudo ?>" />
+                                        
+                                  
                                      </div>
                                 </div>
 
@@ -143,12 +143,12 @@ $modelUsers = User::findByUsername(Yii::$app->user->identity->username)
                                         </div>   </div>
                                 </div> 
                                 <div class="divContainerMarcote">
-                                    <div class='divMascoteIcon visitor' style="background-image: url('/images/40/icon_mascote.png');">
+                                    <div class='divMascoteIcon visitor' style="background-image: url('/images/<?= $data->idTimeVisitante->id?>/<?= $data->idTimeVisitante->icon_mascote_i?>');     background-repeat: no-repeat;">
                                     </div>
                                     <div class="divEscudo visitante">
-                                    <img src="/images/<?php echo $data->idTimeVisitante->escudo ?>" />
-                                    <span>
-                                        <?php echo strtoupper($data->idTimeVisitante->nome); ?></span>
+                                   
+                                        
+                                   
                                     </div>
                                    
                                 </div>

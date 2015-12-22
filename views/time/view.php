@@ -31,6 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'nome',
             'escudo',
+            'icon_mascote',
+            'mascote',
+            'cor_primaria',
+            'cor_secundaria',
+            'icon_mascote_i',
         ],
     ]) ?>
 

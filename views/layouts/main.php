@@ -33,7 +33,7 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
         <title>Distribuidora | Dashboard</title>
         <?php $this->head() ?>
 
-
+        <link href="/css/colorpicker.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
 
 
@@ -45,7 +45,7 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
                 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
                 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-
+     
 
     </head>
     
@@ -260,7 +260,41 @@ $modelUsers =  User::findByUsername(Yii::$app->user->identity->username)
         <?php endif; ?>
             
         <?php $this->endBody() ?>
-         
+               <script src="/js/colorpicker.js" type="text/javascript"></script>
+         <script>
+    jQuery(function(){
+        jQuery("#time-cor_primaria, #time-cor_secundaria").css('width', '7%');
+ jQuery('#time-cor_primaria').ColorPicker({
+	
+	onShow: function (colpkr) {
+		$(colpkr).fadeIn(500);
+		return false;
+	},
+	onHide: function (colpkr) {
+		$(colpkr).fadeOut(500);
+		return false;
+	},
+	onChange: function (hsb, hex, rgb) {
+		$('#time-cor_primaria').css('backgroundColor', '#' + hex);
+               $('#time-cor_primaria').val('#' + hex);
+	}
+});
+         jQuery('#time-cor_secundaria').ColorPicker({
+	
+	onShow: function (colpkr) {
+		$(colpkr).fadeIn(500);
+		return false;
+	},
+	onHide: function (colpkr) {
+		$(colpkr).fadeOut(500);
+		return false;
+	},
+	onChange: function (hsb, hex, rgb) {
+		$('#time-cor_secundaria').css('backgroundColor', '#' + hex);
+               $('#time-cor_secundaria').val('#' + hex);
+	}
+});
+});</script>
        
     
 </html>
