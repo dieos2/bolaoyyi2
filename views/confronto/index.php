@@ -195,8 +195,8 @@ $modelUsers = User::findByUsername(Yii::$app->user->identity->username)
 "><img src="/images/barraTorcida.png" alt=""></div>
                         <div class="progress m-t-sm">
                           
-                            <div class="progress-bar progress-bar-success" data-toggle="tooltip" data-original-title="<?php echo $data->GetNumeroApostaCasa($data->id) ?>" style="width: <?php echo $data::GetPorcentagemApostaCasa($data->id) ?>%"></div>
-                            <div class="progress-bar progress-bar-primary" data-toggle="tooltip" data-original-title="<?php echo $data->GetNumeroApostaVisitante($data->id) ?>" style="width: <?php echo $data::GetPorcentagemApostaVisitante($data->id) ?>%"></div> 
+                            <div class="progress-bar progress-bar-success" data-toggle="tooltip" data-original-title="<?php echo $data->GetNumeroApostaCasa($data->id) ?>" style="width: <?php echo $data::GetPorcentagemApostaCasa($data->id) ?>%; background-color: <?= $data->idTimeCasa->cor_primaria?>"></div>
+                            <div class="progress-bar progress-bar-primary" data-toggle="tooltip" data-original-title="<?php echo $data->GetNumeroApostaVisitante($data->id) ?>" style="width: <?php echo $data::GetPorcentagemApostaVisitante($data->id) ?>%; background-color: <?= $data->idTimeVisitante->cor_primaria?>"></div> 
                             </div> </div> 
                     </section>
 
