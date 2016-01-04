@@ -84,22 +84,14 @@ $modelUsers = User::findByUsername(Yii::$app->user->identity->username)
                     ?>
 
                     <div id="fb-root"></div>
-                    <script>(function (d, s, id) {
-                            var js, fjs = d.getElementsByTagName(s)[0];
-                            if (d.getElementById(id))
-                                return;
-                            js = d.createElement(s);
-                            js.id = id;
-                            js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&appId=120052838155369&version=v2.0";
-                            fjs.parentNode.insertBefore(js, fjs);
-                        }(document, 'script', 'facebook-jssdk'));</script>
+            
                     <section class="panel panel-default">
                         <header class="panel-heading font-bold"><?php echo date_format($date, 'd-m-Y H:i'); ?> - <a id="verAposta-<?php echo $data->id ?>" data-id="<?php echo $data->id ?>" class="btn verAposta btn-info">Ver Apostas</a> </header>
-                        <div class="panel-body" style="padding-left: 100px; padding-bottom: 10px;">
+                        <div class="panel-body" style="padding-left: 18%; padding-bottom: 10px;">
                             <form id="<?php echo $data->id ?>" class="form-inline" role="form" data-validate="parsley">
                                 <div class="divContainerMarcote">
-                                    <div class='divMascoteIcon' style="background-image: url('/images/<?= $data->idTimeCasa->id?>/<?= $data->idTimeCasa->icon_mascote?>');    background-repeat: no-repeat;">
-
+                                    <div class='divMascoteIcon' style="background-image: url('');    background-repeat: no-repeat;">
+                                        <img style="width: 100%" src="/images/<?= $data->idTimeCasa->id?>/<?= $data->idTimeCasa->icon_mascote?>" />
                                     </div> 
                                      <div class="divEscudo casa">
                                         
@@ -110,25 +102,26 @@ $modelUsers = User::findByUsername(Yii::$app->user->identity->username)
                                 <div class="form-group" style="width: 26px; float: left;margin-top: 15px">
                                     <div class="input-group spinner">
                                         <div class="input-group-btn-vertical">
-                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                            <button class="btn btn-default btnSoma"  type="button"><i class="fa fa-caret-up"></i></button>
                                             <input disabled class="c<?php echo $data->id ?> placar" type="text" data-notblank="true" data-maxlength="2" id="placar_casa" name="placar_casa" value="0">
-                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                            <button class="btn btn-default btnDiminui"  type="button"><i class="fa fa-caret-down"></i></button>
                                         </div>   
 
 
                                     </div>
 
-                                </div> <div style="float: left;
+                                </div> 
+                                <div style="float: left;
     width: 12%;
-    text-align: center;">  <?php
+    text-align: center; margin-right: 10px; margin-left: 10px">  <?php
                                 if (date("Y-m-d H:i:s") > date_format($date, 'Y-m-d 15:00')) {
-                                    echo '<a style="float: left;margin: 31px 0 0 0; id="btn-' . $data->id . '" data-idConfronto="' . $data->id . '" data-idGrupo="' . $data->id_grupo . '" class="btn btn-success" disabled="disabled" >Apostar</a>';
+                                    echo '<a style="float: left;margin: 31px 0 0 0; id="btn-' . $data->id . '" data-idConfronto="' . $data->id . '" data-idGrupo="' . $data->id_grupo . '" class="btn btn-success" disabled="disabled" >Palpite</a>';
                                 } else {
-                                    echo '<a style="margin: 22px 0 5px 0;"  id="btn-' . $data->id . '" data-idConfronto="' . $data->id . '" data-idGrupo="' . $data->id_grupo . '" class="btn btn-success">Apostar</a>';
+                                    echo '<a style="margin: 40px 0 5px 0;"  id="btn-' . $data->id . '" data-idConfronto="' . $data->id . '" data-idGrupo="' . $data->id_grupo . '" class="btn btn-success">Apostar</a>';
                                 }
                                 ?>  <?php
                                 if ($modelUsers->role == 30) {
-                                    echo '  <a style="" href="/confronto/update/' . $data->id . '" class="btn btn-success" >Editar</a>';
+                                  //  echo '  <a style="" href="/confronto/update/' . $data->id . '" class="btn btn-success" >Editar</a>';
                                 }
                                 ?> 
                                     </div>
@@ -137,13 +130,15 @@ $modelUsers = User::findByUsername(Yii::$app->user->identity->username)
 
 
                                         <div class="input-group-btn-vertical">
-                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                            <button class="btn btn-default btnSoma" type="button"><i class="fa fa-caret-up"></i></button>
                                             <input disabled  class="v<?php echo $data->id ?> placar" type="text" data-notblank="true" data-maxlength="2" id="placar_visitante" name="placar_visitante" style="" value="0">
-                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                        </div>   </div>
+                                            <button class="btn btn-default btnDiminui" type="button"><i class="fa fa-caret-down"></i></button>
+                                        </div>
+                                    </div>
                                 </div> 
                                 <div class="divContainerMarcote">
-                                    <div class='divMascoteIcon visitor' style="background-image: url('/images/<?= $data->idTimeVisitante->id?>/<?= $data->idTimeVisitante->icon_mascote_i?>');     background-repeat: no-repeat;">
+                                    <div class='divMascoteIcon visitor' style="background-image: url('');     background-repeat: no-repeat;">
+                                        <img style="width: 100%" src="/images/<?= $data->idTimeVisitante->id?>/<?= $data->idTimeVisitante->icon_mascote_i?>" />
                                     </div>
                                     <div class="divEscudo visitante">
                                    
@@ -160,7 +155,7 @@ $modelUsers = User::findByUsername(Yii::$app->user->identity->username)
                                 <input type="hidden" id="data" name="data" value="<?php echo date("Y-m-d H:i:s") ?>" />
 
                             </form>
-                            <div class="fb-share-button" data-href="http://www.casadogui.com.br/index.php?r=confronto/curtir&id=<?php echo $data->id ?>" data-type="button"></div>
+                           
                         </div> 
                         <div id="verApostaDiv-<?php echo $data->id ?>" class="panel-body verApostaDiv">
                             <?php
@@ -276,12 +271,13 @@ $modelUsers = User::findByUsername(Yii::$app->user->identity->username)
 
         });
         (function ($) {
-            $('.spinner .btn:first-of-type').on('click', function () {
-                $('.spinner input').val(parseInt($('.spinner input').val(), 10) + 1);
+            $('.spinner .btnSoma').on('click', function () {
+                $(this).next("input").val(parseInt($(this).next("input").val(), 10) + 1);
             });
-            $('.spinner .btn:last-of-type').on('click', function () {
-                $('.spinner input').val(parseInt($('.spinner input').val(), 10) - 1);
-            });
+            $('.spinner .btnDiminui').on('click', function () {
+                if( $(this).prev("input").val() > 0){
+                 $(this).prev("input").val(parseInt($(this).prev("input").val(), 10) - 1);
+                 }            });
         })(jQuery);
         function PreencheApostas() {
             $.ajax({
